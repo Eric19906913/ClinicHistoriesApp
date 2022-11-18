@@ -15,7 +15,10 @@ namespace ClinicHistories
 
         private void btnAddPatient_Click(object sender, EventArgs e)
         {
-
+            var addPatientMenu = new AddPatientUserControl();
+            mainPanel.Controls.Add(addPatientMenu);
+            mainPanel.Dock = DockStyle.Fill;
+            mainPanel.BringToFront();
         }
     }
 }

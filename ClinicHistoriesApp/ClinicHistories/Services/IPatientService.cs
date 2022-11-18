@@ -1,9 +1,9 @@
-﻿using ClinicHistories.Models;
+﻿using ClinicHistories.Contracts;
 
 namespace ClinicHistories.Services
 {
     public interface IPatientService
     {
-        public void CreatePatient(Patient patient);
+        public void CreatePatient(PatientDto patient);
     }
 }

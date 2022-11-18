@@ -1,13 +1,46 @@
-﻿using ClinicHistories.Models;
+﻿using ClinicHistories.Contracts;
+using ClinicHistories.Infrastructure;
+using ClinicHistories.Models;
 
 namespace ClinicHistories.Services
 {
     public class PatientService : IPatientService
     {
-        public void CreatePatient(Patient patient)
+        private readonly ClinicHistoryDbContext dbContext;
+
+        public PatientService(ClinicHistoryDbContext dbContext)
         {
-            // TODO: search in the DB if we have this patient, if so maybe we should update it?.
-            Console.WriteLine("Some message");
+            this.dbContext = dbContext;
+        }
+
+        public void CreatePatient(PatientDto patient)
+        {
+            var someId = new Guid();
+
+            var location = new Location()
+            {
+                Address = "calle siempreviva",
+                City = "Moreno bajo el puente",
+                PostalCode = "888",
+                State = "peronia",
+                UserId = someId,
+            };
+
+            var patientToAdd = new Patient()
+            {
+                Id = someId,
+                DateOfBirth = patient.DateOfBirth,
+                Dni = patient.Dni,
+                HealthCare = null,
+                Location = location,
+                Name = patient.Name,
+                Phones = new List<Phone>(),
+                Surname = patient.Surname,
+            };
+
+            dbContext.Patient.Add(patientToAdd);
+
+            dbContext.SaveChanges();
         }
     }
 }
